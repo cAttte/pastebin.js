@@ -259,10 +259,10 @@ new PasteStore(client, entries)
 ```
 
 #### Parameters
-| name            | description                     | type                 | default |
-|-----------------|---------------------------------|----------------------|---------|
-| client          | The client the store belongs to | PastebinClient       |         |
-| entries         |                                 | Array<string, Paste> | `null`  |
+| name            | description                     | type                        | default |
+|-----------------|---------------------------------|-----------------------------|---------|
+| client          | The client the store belongs to | PastebinClient              |         |
+| entries         |                                 | Array<Array<string, Paste>> | `null`  |
 
 ### client
 The client this store belongs to.  
@@ -283,14 +283,14 @@ Fetch a paste by its key, and store it in the cache.
 Create a paste, and store it in the cache.
 
 #### Parameters
-| name            | description                 | type                 | default |
-|-----------------|-----------------------------|----------------------|---------|
-| content         | The paste's content         | any                  |         |
-| options         |                             | Array<string, Paste> | `null`  |
-| options.title   | The paste's title           | string               | `{}`    |
-| options.format  | The paste's format          | string               | `null`  |
-| options.privacy | The paste's privacy setting | number               | `null`  |
-| options.expiry  | The paste's expiry time     | string               | `null`  |
+| name            | description                 | type                        | default |
+|-----------------|-----------------------------|-----------------------------|---------|
+| content         | The paste's content         | any                         |         |
+| options         |                             | Array<Array<string, Paste>> | `null`  |
+| options.title   | The paste's title           | string                      | `{}`    |
+| options.format  | The paste's format          | string                      | `null`  |
+| options.privacy | The paste's privacy setting | number                      | `null`  |
+| options.expiry  | The paste's expiry time     | string                      | `null`  |
 
 #### Returns
 **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Paste](#Paste)>**
@@ -304,10 +304,10 @@ new UserStore(client, entries)
 ```
 
 #### Paramaters
-| name    | description                     | type                 | default |
-|---------|---------------------------------|----------------------|---------|
-| client  | The client the store belongs to | PastebinClient       |         |
-| entries |                                 | Array<string, Paste> | `null`  |
+| name    | description                     | type                        | default |
+|---------|---------------------------------|-----------------------------|---------|
+| client  | The client the store belongs to | PastebinClient              |         |
+| entries |                                 | Array<Array<string, Paste>> | `null`  |
 
 ### client
 The client this store belongs to.  
@@ -333,11 +333,11 @@ new UserPasteStore()
 ```
 
 #### Parameters
-| name    | description                     | type                 | default |
-|---------|---------------------------------|----------------------|---------|
-| client  | The client the store belongs to | PastebinClient       |         |
-| user    | The user the store belongs to   | User                 |         |
-| entries |                                 | Array<string, Paste> | `null`  |
+| name    | description                     | type                        | default |
+|---------|---------------------------------|-----------------------------|---------|
+| client  | The client the store belongs to | PastebinClient              |         |
+| user    | The user the store belongs to   | User                        |         |
+| entries |                                 | Array<Array<string, Paste>> | `null`  |
 
 ### client
 The client this store belongs to.  
