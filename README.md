@@ -23,31 +23,31 @@ new PastebinClient(apiKey, username, password)
 | password | Your Pastebin password | string | `null`  |
 
 ### credentials
-Your Pastebin credentials.
+Your Pastebin credentials.  
 **Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)**
 
 #### credentials.apiKey
-Your Pastebin API key.
+Your Pastebin API key.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 #### credentials.username
-Your Pastebin username.
+Your Pastebin username.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 #### credentials.password
-Your Pastebin password.
+Your Pastebin password.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### user
-The user the client logged in with, if it has.
+The user the client logged in with, if it has.  
 **Type: ?[ClientUser](#ClientUser)**
 
 ### users
-All of the cached users.
+All of the cached users.  
 **Type: ?[UserStore](#UserStore)**
 
 ### pastes
-All of the cached pastes.
+All of the cached pastes.  
 **Type: ?[PasteStore](#PasteStore)**
 
 ### login()
@@ -98,55 +98,55 @@ new Paste(client, data)
 | data.hits       | The number of times anyone saw the paste | number         | `null`  |
 
 ### client
-The client used to get this paste.
+The client used to get this paste.  
 **Type: [PastebinClient](#PastebinClient)**
 
 ### key
-The key of this paste.
+The key of this paste.  
 **Type: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### url
-The URL of this paste.
+The URL of this paste.  
 **Type: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### title
-The title of this paste.
+The title of this paste.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### author
-The author of this paste.
+The author of this paste.  
 **Type: ?[User](#User)**
 
 ### content
-The content of this paste.
+The content of this paste.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### size
-The length of the content of this paste.
+The length of the content of this paste.  
 **Type: ?[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
 
 ### date
-The date this paste was posted.
+The date this paste was posted.  
 **Type: ?[Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)**
 
 ### format
-The format of this paste.
+The format of this paste.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### privacy
-The privacy setting of this paste.
+The privacy setting of this paste.  
 **Type: ?[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
 
 ### expiry
-The expiry time of this paste.
+The expiry time of this paste.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### expiryDate
-The expiry date of this paste.
+The expiry date of this paste.  
 **Type: ?[Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)**
 
 ### hits
-The number of times anyone saw this paste.
+The number of times anyone saw this paste.  
 **Type: ?[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
 
 ### fetch()
@@ -176,15 +176,15 @@ new User(client, username)
 | username        | The user's username                      | string         |         |
 
 ### client
-The client used to get this user.
+The client used to get this user.  
 **Type: [PastebinClient](#PastebinClient)**
 
 ### username
-This user's username.
+This user's username.  
 **Type: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### me
-Whether this user is the same as the client's user.
+Whether this user is the same as the client's user.  
 **Type: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 ## ClientUser *extends User*
@@ -211,43 +211,43 @@ new ClientUser(client, data)
 | data.pro        | Whether the user is a PRO account        | boolean        | `null`  |
 
 ### username
-This user's username.
+This user's username.  
 **Type: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### format
-This user's format setting.
+This user's format setting.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### expiry
-This user's expiry setting.
+This user's expiry setting.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### avatarURL
-This user's avatar URL.
+This user's avatar URL.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### privacy
-This user's privacy setting.
+This user's privacy setting.  
 **Type: ?[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)**
 
 ### website
-This user's website.
+This user's website.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### email
-This user's e-mail.
+This user's e-mail.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### location
-This user's location.
+This user's location.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
 ### pro
-Whether this user is a PRO account.
+Whether this user is a PRO account.  
 **Type: ?[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 ### pastes
-All of this user's cached pastes.
+All of this user's cached pastes.  
 **Type: ?[UserPasteStore](#UserPasteStore)**
 
 ## PasteStore *extends Map*
@@ -265,7 +265,7 @@ new PasteStore(client, entries)
 | entries         |                                 | Array<string, Paste> | `null`  |
 
 ### client
-The client this store belongs to.
+The client this store belongs to.  
 **Type: [PastebinClient](#PastebinClient)**
 
 ### fetch()
@@ -310,7 +310,7 @@ new UserStore(client, entries)
 | entries |                                 | Array<string, Paste> | `null`  |
 
 ### client
-The client this store belongs to.
+The client this store belongs to.  
 **Type: [PastebinClient](#PastebinClient)**
 
 ### fetch()
@@ -340,11 +340,11 @@ new UserPasteStore()
 | entries |                                 | Array<string, Paste> | `null`  |
 
 ### client
-The client this store belongs to.
+The client this store belongs to.  
 **Type: [PastebinClient](#PastebinClient)**
 
 ### user
-The user this store belongs to.
+The user this store belongs to.  
 **Type: [User](#User)**
 
 ### fetch()
