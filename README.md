@@ -54,7 +54,7 @@ All of the cached pastes.
 Login with the stored username and password and store the user key.
 
 #### Returns
-**[PastebinClient](#PastebinClient)**
+**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[PastebinClient](#PastebinClient)>**
 
 ## PastebinError
 Thrown when there's an error related to the Pastebin API or pastebin.js.
