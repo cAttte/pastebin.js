@@ -1,3 +1,4 @@
+const PastebinClient = require("../../../struct/PastebinClient")
 const PastebinError = require("../PastebinError")
 const User = require("../User")
 
@@ -8,15 +9,19 @@ const xml2js = require("xml2js").parseStringPromise
  */
 module.exports = class UserStore extends Map {
     /**
-     * @param {PastebinClient} client The client this store belongs to
+     * @param {PastebinClient} client The client the store belongs to
      * @param {Array<string, User>?} entries
      */
     constructor(client, entries) {
         super(entries)
+        /**
+         * The client this store belongs to.
+         * @type {PastebinClient}
+         */
         this.client = client
     }
     /**
-     * Fetch a user by their username and store them in the cache.
+     * Fetch a user by their username, and store them in the cache.
      * @param {string} username The user's username
      */
     async fetch(username) {

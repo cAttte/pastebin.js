@@ -9,8 +9,8 @@ module.exports = class Paste {
      * @param {PastebinClient} client The client used to get this paste
      * @param {Object} data
      * @param {string} data.key The key of the paste
-     * @param {string?} data.title The title of this paste
-     * @param {User?} data.author The author of this paste
+     * @param {string?} data.title The title of the paste
+     * @param {User?} data.author The author of the paste
      * @param {string?} data.content The content of the paste
      * @param {number?} data.size The length of the content of the paste
      * @param {Date?} data.date The date the paste was posted
@@ -18,78 +18,78 @@ module.exports = class Paste {
      * @param {Privacy?} data.privacy The privacy setting of the paste
      * @param {Expiry?} data.expiry The expiry time of the paste
      * @param {Date?} data.expiryDate The expiry date of the paste
-     * @param {number?} data.hits The number of times anyone saw this paste
+     * @param {number?} data.hits The number of times anyone saw the paste
      */
     constructor(client, data) {
         /**
-         * The client used to get this paste
+         * The client used to get this paste.
          * @type {PastebinClient}
          */
         this.client = client
         /**
-         * The key of this paste
+         * The key of this paste.
          * @type {string}
          */
         this.key = data.key
         /**
-         * The title of this paste
+         * The title of this paste.
          * @type {string?}
          */
         this.title = data.title
         /**
-         * The author of this paste
+         * The author of this paste.
          * @type {User?}
          */
         this.author = data.author
         /**
-         * The content of this paste
+         * The content of this paste.
          * @type {string?}
          */
         this.content = data.content
         /**
-         * The length of the content of this paste
+         * The length of the content of this paste.
          * @type {number?}
          */
         this.size = data.size || (data.content || { length: null }).length
         /**
-         * The date this paste was posted
+         * The date this paste was posted.
          * @type {Date?}
          */
         this.date = data.date
         /**
-         * The format (syntax highlighting) of this paste
+         * The format (syntax highlighting) of this paste.
          * @type {Format?}
          */
         this.format = data.format
         /**
-         * The privacy setting of this paste
+         * The privacy setting of this paste.
          * @type {Privacy?}
          */
         this.privacy = data.privacy
         /**
-         * The expiry time of this paste
+         * The expiry time of this paste.
          * @type {Expiry?}
          */
         this.expiry = data.expiry
         /**
-         * The expiry date of this paste
+         * The expiry date of this paste.
          * @type {Date?}
          */
         this.expiryDate = data.expiryDate
         /**
-         * The number of times anyone saw this paste
+         * The number of times anyone saw this paste.
          * @type {number?}
          */
         this.hits = data.hits
         /**
-         * Whether the paste is deleted or not
+         * Whether the paste is deleted or not.
          * @type {boolean}
          */
         this.deleted = false
     }
 
     /**
-     * The URL of this paste
+     * The URL of this paste.
      * @type {string}
      */
     get url() {
@@ -97,15 +97,16 @@ module.exports = class Paste {
     }
 
     /**
-     * Fetch the content of this paste and store it
+     * Fetch the content of this paste, and store it in the cache.
      */
     async fetch() {
-        const { content } = await this.client.getPaste(this.key)
+        const { content } = await this.client.pastes.fetch(this.key)
         this.content = content
+        return this
     }
 
     /**
-     * Delete this paste
+     * Delete this paste.
      */
     async delete() {
         if (!this.client.credentials.apiKey)

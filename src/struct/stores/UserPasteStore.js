@@ -1,5 +1,7 @@
+const PastebinClient = require("../../../struct/PastebinClient")
 const PastebinError = require("../PastebinError")
 const Paste = require("../Paste")
+const User = require("../../../struct/User")
 
 const xml2js = require("xml2js").parseStringPromise
 
@@ -8,19 +10,27 @@ const xml2js = require("xml2js").parseStringPromise
  */
 module.exports = class UserPasteStore extends Map {
     /**
-     * @param {PastebinClient} client The client this store belongs to
-     * @param {User} user The user this store belongs to
+     * @param {PastebinClient} client The client the store belongs to
+     * @param {User} user The user the store belongs to
      * @param {Array<string, Paste>?} entries
      */
     constructor(client, user, entries) {
         super(entries)
+        /**
+         * The client this store belongs to.
+         * @type {PastebinClient}
+         */
         this.client = client
+        /**
+         * The user this store belongs to.
+         * @type {User}
+         */
         this.user = user
     }
     /**
-     * Fetch the user's pastes, and store them in the cache.
+     * Fetch this user's pastes, and store them in the cache.
      * @param {number?} max The maximum number of pastes to fetch
-     * @returns {UserPasteStore}
+     * @returns {Promise<UserPasteStore>}
      */
     async fetch(max = 50) {
         if (max > 1000 || max < 1 || !Number.isInteger(max))

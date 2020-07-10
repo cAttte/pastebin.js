@@ -1,16 +1,24 @@
 const PastebinClient = require("./PastebinClient")
-const UserPasteStore = require("./stores/UserPasteStore")
+const PastebinClient = require("../../struct/PastebinClient")
 
 /**
  * A Pastebin user.
  */
 module.exports = class User {
     /**
-     * @param {PastebinClient} client The client used to get this user
+     * @param {PastebinClient} client The client used to get the user
      * @param {string} username The user's username
      */
     constructor(client, username) {
+        /**
+         * The client used to get this user.
+         * @type {PastebinClient}
+         */
         this.client = client
+        /**
+         * This user's username.
+         * @type {string}
+         */
         this.username = username
     }
 

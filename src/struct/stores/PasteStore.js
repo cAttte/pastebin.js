@@ -1,3 +1,4 @@
+const PastebinClient = require("../../../struct/PastebinClient")
 const PastebinError = require("../PastebinError")
 const Paste = require("../Paste")
 
@@ -8,17 +9,21 @@ const fetch = require("node-fetch")
  */
 module.exports = class PasteStore extends Map {
     /**
-     * @param {PastebinClient} client The client this store belongs to
+     * @param {PastebinClient} client The client the store belongs to
      * @param {Array<string, Paste>?} entries
      */
     constructor(client, entries) {
         super(entries)
+        /**
+         * The client this store belongs to.
+         * @type {PastebinClient}
+         */
         this.client = client
     }
     /**
      * Fetch a paste by its key, and store it in the cache.
      * @param {string} key The paste's key
-     * @returns {Paste}
+     * @returns {Promise<Paste>}
      */
     async fetch(key) {
         if (this.client.credentials.userKey) {
@@ -41,7 +46,7 @@ module.exports = class PasteStore extends Map {
             const paste = new Paste(this.client, { key, content: body })
             return paste
         } else {
-            const response = await fetch(this.constructor.BASE_RAW_URL + key)
+            const response = await fetch(this.client.constructor.BASE_RAW_URL + key)
             if (response.status === 404)
                 throw new PastebinError("The paste doesn't exist.")
             const content = await response.text()
@@ -55,17 +60,17 @@ module.exports = class PasteStore extends Map {
     /**
      * Options passed to `PasteStore#create()`.
      * @typedef PasteCreateOptions
-     * @property {string?} title The title of the paste
-     * @property {Format?} format The syntax highlighting used for the paste
-     * @property {Privacy?} privacy The privacy setting of the paste
-     * @property {Expiry?} expiry The expiry time for the paste
+     * @property {string?} title The paste's title
+     * @property {Format?} format The paste's format
+     * @property {Privacy?} privacy The paste's privacy setting
+     * @property {Expiry?} expiry The paste's expiry time
      */
 
     /**
      * Create a paste, and store it in the cache.
-     * @param {ContentResolvable} content The content of the paste
+     * @param {*} content The content of the paste
      * @param {PasteCreateOptions} options
-     * @returns {Paste}
+     * @returns {Promise<Paste>}
      */
     async create(content, { title, format, privacy, expiry } = {}) {
         if (!this.client.credentials.apiKey)

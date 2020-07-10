@@ -31,12 +31,19 @@ module.exports = class PastebinClient {
      * @param {string?} password Your Pastebin password
      */
     constructor(apiKey = null, username = null, password = null) {
+        /**
+         * Your Pastebin credentials.
+         * @type {object}
+         * @property {string?} apiKey Your Pastebin API key
+         * @property {string?} username Your Pastebin username
+         * @property {string?} password Your Pastebin password
+         */
         this.credentials = {
             apiKey, username, password
         }
         /**
          * The user the client logged in with, if it has.
-         * @type {User?}
+         * @type {ClientUser?}
          */
         this.user = null
         /**
@@ -73,7 +80,7 @@ module.exports = class PastebinClient {
     }
 
     /**
-     * Login with the provided username and password and store the user key.
+     * Login with the stored username and password and store the user key.
      * @returns {PastebinClient}
      */
     async login() {
