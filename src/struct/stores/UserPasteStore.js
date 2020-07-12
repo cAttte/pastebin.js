@@ -1,7 +1,7 @@
-const PastebinClient = require("../../../struct/PastebinClient")
+const PastebinClient = require("../PastebinClient")
 const PastebinError = require("../PastebinError")
 const Paste = require("../Paste")
-const User = require("../../../struct/User")
+const User = require("../User")
 
 const xml2js = require("xml2js").parseStringPromise
 

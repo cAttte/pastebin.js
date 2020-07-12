@@ -1,4 +1,4 @@
-const PastebinClient = require("../../../struct/PastebinClient")
+const PastebinClient = require("../PastebinClient")
 const PastebinError = require("../PastebinError")
 const User = require("../User")
 
