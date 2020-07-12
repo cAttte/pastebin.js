@@ -120,7 +120,7 @@ module.exports = class PastebinClient {
 
     /**
      * Login with the stored username and password and store the user key.
-     * @returns {PastebinClient}
+     * @returns {Promise<PastebinClient>}
      */
     async login() {
         if (!this.credentials.apiKey)
