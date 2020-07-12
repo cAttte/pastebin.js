@@ -62,9 +62,15 @@ module.exports = class PastebinClient {
      * Make a POST request to a Pastebin API URL.
      * @param {string} url The URL to request
      * @param {Object} requestBody The body of the request
-     * @returns {Object}
+     * @returns {Promise<string>}
      */
     static async post(url, requestBody) {
+        if (typeof url !== "string")
+            throw new PastebinError("`url` must be a string.")
+        if (!new URL(url).protocol.startsWith("http"))
+            throw new PastebinError("`url` must use the HTTP or HTTPS protocol.")
+        if (!requestBody || typeof requestBody !== "object")
+            throw new PastebinError("`requestBody` must be an object.")
         const response = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
@@ -108,7 +114,7 @@ module.exports = class PastebinClient {
                     throw new PastebinError(`Unknown error: ${error}.`)
             }
         } else {
-            return { body, error: null }
+            return body
         }
     }
 
@@ -129,7 +135,8 @@ module.exports = class PastebinClient {
         })
 
         this.credentials.userKey = body.trim()
-        this.user = await this.users.fetch(this.credentials.username)
+        if (this.credentials.userKey)
+            this.user = await this.users.fetch(this.credentials.username)
 
         return this
     }
