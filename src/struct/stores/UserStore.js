@@ -30,19 +30,11 @@ module.exports = class UserStore extends Map {
         if (!this.client.credentials.userKey)
             throw new PastebinError("User key is required to fetch a user.")
 
-        const { body, error } = await this.client.constructor.post(this.client.constructor.POST_URL, {
+        const body = await this.client.constructor.post(this.client.constructor.POST_URL, {
             api_dev_key: this.client.credentials.apiKey,
             api_user_key: this.client.credentials.userKey,
             api_option: "userdetails"
         })
-        if (error) switch (error) {
-            case "invalid api_dev_key":
-                throw new PastebinError("Invalid API key.")
-            case "invalid api_user_key":
-                throw new PastebinError("Invalid user key.")
-            default:
-                throw new PastebinError(`Unknown error: ${error}.`)
-        }
 
         let invalidResponse
         const parsed = (await xml2js(body).catch(() => invalidResponse = true)).user

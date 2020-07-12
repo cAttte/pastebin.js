@@ -73,7 +73,40 @@ module.exports = class PastebinClient {
         const body = await response.text()
         if (body.toLowerCase().startsWith("bad api request")) {
             const error = body.slice("bad api request, ".length).toLowerCase()
-            return { error, body: null }
+            switch(error) {
+                case "invalid login":
+                    throw new PastebinError("Invalid username or password.")
+                case "account not active":
+                    throw new PastebinError("Account not active.")
+                case "invalid api_dev_key":
+                    throw new PastebinError("Invalid API key.")
+                case "invalid api_user_key":
+                    throw new PastebinError("Invalid user key.")
+                case "invalid permission to view this paste or invalid api_paste_key":
+                    throw new PastebinError("The paste is private, or it doesn't exist.")
+                case "invalid permission to remove paste":
+                    throw new PastebinError("No permission to delete this paste.")
+                case "ip blocked":
+                    throw new PastebinError("IP blocked.")
+                case "maximum number of 25 unlisted pastes for your free account":
+                    throw new PastebinError("Maximum of 25 unlisted pastes for free account exceeded.")
+                case "maximum number of 10 private pastes for your free account":
+                    throw new PastebinError("Maximum of 10 private pastes for free account exceeded.")
+                case "api_paste_code was empty":
+                    throw new PastebinError("Paste content is empty.")
+                case "maximum paste file size exceeded":
+                    throw new PastebinError("Paste content exceeds maximum length.")
+                case "invalid api_expire_date":
+                    throw new PastebinError("Invalid paste expiry.")
+                case "invalid api_paste_private":
+                    throw new PastebinError("Invalid paste privacy setting.")
+                case "invalid api_paste_format":
+                    throw new PastebinError("Invalid paste format.")
+                case "invalid or expired api_user_key":
+                    throw new PastebinError("Invalid or expired user key.")
+                default:
+                    throw new PastebinError(`Unknown error: ${error}.`)
+            }
         } else {
             return { body, error: null }
         }
@@ -89,22 +122,12 @@ module.exports = class PastebinClient {
         if (!this.credentials.username || !this.credentials.password)
             throw new PastebinError("Username and password are required to login.")
 
-        const { error, body } = await this.constructor.post(this.constructor.LOGIN_URL, {
+        const body = await this.constructor.post(this.constructor.LOGIN_URL, {
             api_dev_key: this.credentials.apiKey,
             api_user_name: this.credentials.username,
             api_user_password: this.credentials.password
         })
 
-        if (error) switch (error) {
-            case "invalid api_dev_key":
-                throw new PastebinError("Invalid API key.")
-            case "invalid login":
-                throw new PastebinError("Invalid username or password.")
-            case "account not active":
-                throw new PastebinError("Account not active.")
-            default:
-                throw new PastebinError(`Unknown error: ${error}.`)
-        }
         this.credentials.userKey = body.trim()
         this.user = await this.users.fetch(this.credentials.username)
 

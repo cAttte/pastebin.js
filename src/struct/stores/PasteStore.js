@@ -27,22 +27,12 @@ module.exports = class PasteStore extends Map {
      */
     async fetch(key) {
         if (this.client.credentials.userKey) {
-            const { error, body } = await this.client.constructor.post(this.client.constructor.RAW_URL, {
+            const body = await this.client.constructor.post(this.client.constructor.RAW_URL, {
                 api_dev_key: this.client.credentials.apiKey,
                 api_user_key: this.client.credentials.userKey,
                 api_paste_key: key,
                 api_option: "show_paste"
             })
-            if (error) switch (error) {
-                case "invalid api_dev_key":
-                    throw new PastebinError("Invalid API key.")
-                case "invalid api_user_key":
-                    throw new PastebinError("Invalid user key.")
-                case "invalid permission to view this paste or invalid api_paste_key":
-                    throw new PastebinError("The paste is private, or it doesn't exist.")
-                default:
-                    throw new PastebinError(`Unknown error: ${error}.`)
-            }
             const paste = new Paste(this.client, { key, content: body })
             return paste
         } else {
@@ -96,34 +86,8 @@ module.exports = class PasteStore extends Map {
         if (privacy) requestBody.api_paste_private = privacy
         if (expiry) requestBody.api_paste_expire_date = expiry
 
-        const { error, body } = await this.client.constructor.post(this.client.constructor.POST_URL, requestBody)
+        const body = await this.client.constructor.post(this.client.constructor.POST_URL, requestBody)
 
-        if (error) switch (error) {
-            case "invalid api_dev_key":
-                throw new PastebinError("Invalid API key.")
-            case "ip blocked":
-                throw new PastebinError("IP blocked.")
-            case "maximum number of 25 unlisted pastes for your free account":
-                throw new PastebinError("Maximum of 25 unlisted pastes for free account exceeded.")
-            case "maximum number of 10 private pastes for your free account":
-                throw new PastebinError("Maximum of 10 private pastes for free account exceeded.")
-            case "api_paste_code was empty":
-                throw new PastebinError("Paste content is empty.")
-            case "maximum paste file size exceeded":
-                throw new PastebinError("Paste content exceeds maximum length.")
-            case "invalid api_expire_date":
-                throw new PastebinError("Invalid paste expiry.")
-            case "invalid api_paste_private":
-                throw new PastebinError("Invalid paste privacy setting.")
-            case "invalid api_paste_format":
-                throw new PastebinError("Invalid paste format.")
-            case "invalid api_user_key":
-                throw new PastebinError("Invalid user key.")
-            case "invalid or expired api_user_key":
-                throw new PastebinError("Invalid or expired user key.")
-            default:
-                throw new PastebinError(`Unknown error: ${error}.`)
-        }
         if (body.toLowerCase() === "post limit, maximum pastes per 24h reached")
             throw new PastebinError("Post limit per 24 hours exceeded.")
         const key = (body.match(/https?:\/\/pastebin\.com\/(.+)/i) || [])[1]

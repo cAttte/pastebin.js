@@ -39,21 +39,13 @@ module.exports = class UserPasteStore extends Map {
             throw new PastebinError("API key is required to fetch a user.")
         if (!this.client.credentials.userKey)
             throw new PastebinError("User key is required to fetch a user.")
-        const { error, body } = await this.client.constructor.post(this.client.constructor.POST_URL, {
+        const body = await this.client.constructor.post(this.client.constructor.POST_URL, {
             api_dev_key: this.client.credentials.apiKey,
             api_user_key: this.client.credentials.userKey,
             api_results_limit: max,
             api_option: "list"
         })
-        if (error) switch (error) {
-            case "invalid api_dev_key":
-                throw new PastebinError("Invalid API key.")
-            case "invalid api_user_key":
-                throw new PastebinError("Invalid user key.")
-            default:
-                throw new PastebinError(`Unknown error: ${error}.`)
-        }
-        if (body.toLowerCase() === "no posts found.") return
+        if (body.toLowerCase() === "no posts found.") return this
         const allPasteXMLs = body.match(/<paste>[\s\S]*?<\/paste>/g)
         if (!allPasteXMLs) return
         allPasteXMLs.forEach(async xml => {

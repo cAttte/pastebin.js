@@ -113,22 +113,12 @@ module.exports = class Paste {
             throw new PastebinError("API key is required to delete a paste.")
         if (!this.client.credentials.userKey)
             throw new PastebinError("User key is required to delete a paste.")
-        const { error } = await this.client.constructor.post(this.client.constructor.POST_URL, {
+        await this.client.constructor.post(this.client.constructor.POST_URL, {
             api_dev_key: this.client.credentials.apiKey,
             api_user_key: this.client.credentials.userKey,
             api_option: "delete",
             api_paste_key: this.key
         })
-        if (error) switch (error) {
-            case "invalid api_dev_key":
-                throw new PastebinError("Invalid API key.")
-            case "invalid api_user_key":
-                throw new PastebinError("Invalid user key.")
-            case "invalid permission to remove paste":
-                throw new PastebinError("No permission to delete this paste.")
-            default:
-                throw new PastebinError(`Unknown error: ${error}.`)
-        }
         this.deleted = true
         return this
     }
