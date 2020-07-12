@@ -1,7 +1,7 @@
 <img src="https://i.imgur.com/Uo0FVG7.png" align="right" width="200">
 
 # pastebin.js
-An OOP JavaScript wrapper for the Pastebin API.
+An object-oriented JavaScript wrapper for the Pastebin API.
 
 # Docs
 The module exports 8 classes:
