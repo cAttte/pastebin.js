@@ -6,7 +6,7 @@ An object-oriented JavaScript wrapper for the Pastebin API.
 # Docs
 The module exports 8 classes:
 ```js
-const { PastebinClient, PastebinError, Paste, User, ClientUser, PasteStore, UserStore, userPasteStore } = require("pastebin.js")
+const { PastebinClient, PastebinError, Paste, User, ClientUser, PasteStore, UserStore, UserPasteStore } = require("pastebin.js")
 ```
 
 ## PastebinClient
