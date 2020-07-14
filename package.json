@@ -1,5 +1,5 @@
 {
-  "name": "pastebin",
+  "name": "pastebin.js",
   "version": "1.0.0",
   "description": "An OOP JavaScript wrapper for the Pastebin API",
   "main": "src/index.js",
