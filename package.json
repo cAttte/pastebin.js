@@ -1,7 +1,7 @@
 {
   "name": "pastebin.js",
   "version": "1.0.0",
-  "description": "An OOP JavaScript wrapper for the Pastebin API",
+  "description": "An object-oriented JavaScript wrapper for the Pastebin API.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
