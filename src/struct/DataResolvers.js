@@ -1,12 +1,8 @@
 const PastebinError = require("./PastebinError")
 
-module.exports = class Resolvers {
+module.exports = class DataResolvers {
     constructor() { throw new PastebinError() }
 
-    /**
-     * The content of a paste. If an object, it will be stringified as JSON. If a Buffer or a primitive value, it will be converted with `String()`
-     * @typedef {*} ContentResolvable
-     */
     static resolveContent(value) {
         if (!value)
             throw new PastebinError("Paste content is invalid.")

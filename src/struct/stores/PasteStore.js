@@ -1,3 +1,4 @@
+const DataResolvers = require("../DataResolvers")
 const PastebinClient = require("../PastebinClient")
 const PastebinError = require("../PastebinError")
 const Paste = require("../Paste")
