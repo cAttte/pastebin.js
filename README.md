@@ -56,7 +56,7 @@ Your Pastebin password.
 
 ### .user
 The user the client logged in with, if it has.  
-**Type: ?[ClientUser](#clientuser)**
+**Type: ?[ClientUser](#clientuser-extends-user)**
 
 ### .users
 All of the cached users.  
@@ -64,7 +64,7 @@ All of the cached users.
 
 ### .pastes
 All of the cached pastes.  
-**Type: ?[PasteStore](#pastestore)**
+**Type: ?[PasteStore](#pastestore-extends-map)**
 
 ### .login()
 Login with the stored username and password and store the user key.
@@ -72,7 +72,7 @@ Login with the stored username and password and store the user key.
 #### Returns
 **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[PastebinClient](#pastebinclient)>**
 
-## PastebinError
+## PastebinError *extends [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)*
 Thrown when there's an error related to the Pastebin API or pastebin.js.
 
 ### .constructor()
@@ -203,7 +203,7 @@ This user's username.
 Whether this user is the same as the client's user.  
 **Type: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
-## ClientUser *extends User*
+## ClientUser *extends [User](#user)*
 The Pastebin user of the logged in client.
 
 ### .constructor()
@@ -266,7 +266,7 @@ Whether this user is a PRO account.
 All of this user's cached pastes.  
 **Type: ?[UserPasteStore](#userpastestore)**
 
-## PasteStore *extends Map*
+## PasteStore *extends [Map](#https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)*
 A structure that holds all of the cached pastes.
 
 ### .constructor()
