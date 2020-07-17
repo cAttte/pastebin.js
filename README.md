@@ -18,6 +18,10 @@ const pastebin = new PastebinClient(process.env.API_KEY)
 ```
 
 # Classes
+The module exports the following classes, you can use them like so:
+```js
+const { PastebinClient, PastebinError, Paste, User, ClientUser, PasteStore, UserStore, UserPasteStore } = require("pastebin.js")
+```
 
 ## PastebinClient
 The client used to interact with the Pastebin API.
@@ -93,21 +97,21 @@ new Paste(client, data)
 ```
 
 #### Parameters
-| name            | description                              | type           | default |
-|-----------------|------------------------------------------|----------------|---------|
-| client          | The client used to get this paste        | PastebinClient |         |
-| data            |                                          | Object         |         |
-| data.key        | The key of the paste                     | string         |         |
-| data.title      | The title of the paste                   | string         | `null`  |
-| data.author     | The author of the paste                  | User           | `null`  |
-| data.content    | The content of the paste                 | string         | `null`  |
-| data.size       | The length of the content of the paste   | number         | `null`  |
-| data.date       | The date the paste was posted            | Date           | `null`  |
-| data.format     | The format of the paste                  | string         | `null`  |
-| data.privacy    | The privacy setting of the paste         | number         | `null`  |
-| data.expiry     | The expiry time of the paste             | string         | `null`  |
-| data.expiryDate | The expiry date of the paste             | Date           | `null`  |
-| data.hits       | The number of times anyone saw the paste | number         | `null`  |
+| name            | description                              | type                | default |
+|-----------------|------------------------------------------|---------------------|---------|
+| client          | The client used to get this paste        | PastebinClient      |         |
+| data            |                                          | Object              |         |
+| data.key        | The key of the paste                     | string              |         |
+| data.title      | The title of the paste                   | string              | `null`  |
+| data.author     | The author of the paste                  | User                | `null`  |
+| data.content    | The content of the paste                 | string              | `null`  |
+| data.size       | The length of the content of the paste   | number              | `null`  |
+| data.date       | The date the paste was posted            | Date                | `null`  |
+| data.format     | The format of the paste                  | [Format](#format)   | `null`  |
+| data.privacy    | The privacy setting of the paste         | [Privacy](#privacy) | `null`  |
+| data.expiry     | The expiry time of the paste             | [Expiry](#expiry)   | `null`  |
+| data.expiryDate | The expiry date of the paste             | Date                | `null`  |
+| data.hits       | The number of times anyone saw the paste | number              | `null`  |
 
 ### client
 The client used to get this paste.  
@@ -210,17 +214,17 @@ new ClientUser(client, data)
 #### Parameters
 | name            | description                              | type           | default |
 |-----------------|------------------------------------------|----------------|---------|
-| client          | The client used to get this paste        | PastebinClient |         |
-| data            |                                          | Object         |         |
-| data.username   | The user's username                      | string         |         |
-| data.format     | The user's format setting                | string         | `null`  |
-| data.expiry     | The user's expiry setting                | string         | `null`  |
-| data.avatarURL  | The user's avatar URL                    | string         | `null`  |
-| data.privacy    | The user's privacy setting               | number         | `null`  |
-| data.website    | The user's website                       | string         | `null`  |
-| data.email      | The user's e-mail                        | string         | `null`  |
-| data.location   | The user's location                      | string         | `null`  |
-| data.pro        | Whether the user is a PRO account        | boolean        | `null`  |
+| client          | The client used to get this paste        | PastebinClient      |         |
+| data            |                                          | Object              |         |
+| data.username   | The user's username                      | string              |         |
+| data.format     | The user's format setting                | [Format](#format)   | `null`  |
+| data.expiry     | The user's expiry setting                | [Expiry](#expiry)   | `null`  |
+| data.avatarURL  | The user's avatar URL                    | string              | `null`  |
+| data.privacy    | The user's privacy setting               | [Privacy](#privacy) | `null`  |
+| data.website    | The user's website                       | string              | `null`  |
+| data.email      | The user's e-mail                        | string              | `null`  |
+| data.location   | The user's location                      | string              | `null`  |
+| data.pro        | Whether the user is a PRO account        | boolean             | `null`  |
 
 ### username
 This user's username.  
@@ -300,9 +304,9 @@ Create a paste, and store it in the cache.
 | content         | The paste's content         | any                         |         |
 | options         |                             | Array<Array<string, Paste>> | `null`  |
 | options.title   | The paste's title           | string                      | `{}`    |
-| options.format  | The paste's format          | string                      | `null`  |
-| options.privacy | The paste's privacy setting | number                      | `null`  |
-| options.expiry  | The paste's expiry time     | string                      | `null`  |
+| options.format  | The paste's format          | [Format](#format)           | `null`  |
+| options.privacy | The paste's privacy setting | [Privacy](#privacy)         | `null`  |
+| options.expiry  | The paste's expiry time     | [Expiry](#expiry)           | `null`  |
 
 #### Returns
 **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Paste](#paste)>**
@@ -329,9 +333,9 @@ The client this store belongs to.
 Fetch a user by their username, and store them in the cache.
 
 #### Parameters
-| name     | description         | type           | default |
-|----------|---------------------|----------------|---------|
-| username | The user's username | PastebinClient |         |
+| name     | description         | type   | default |
+|----------|---------------------|--------|---------|
+| username | The user's username | string |         |
 
 #### Returns
 **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[User](#user)>**
@@ -369,3 +373,33 @@ Fetch this user's pastes, and store them in the cache.
 
 #### Returns
 **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[UserPasteStore](#userpastestore)>**
+
+# Typedefs
+
+## Format
+
+A "format," which will be used for syntax highlighting. You can see the full list of formats [here](https://pastebin.com/api#5).
+
+**Type:** `string`
+
+## Privacy
+
+A privacy setting. Can be one of the following:
+* `0` (or `"public"`)
+* `1` (or `"unlisted"`)
+* `2` (or `"private"`)
+
+**Type:** `string` or `number`
+
+## Expiry
+
+An expiry setting. Can be one of the following:
+* `"NEVER"` (or `"N"`)
+* `"10 MINUTES"` (or `"10M"`)
+* `"1 HOUR"` (or `"1H"`)
+* `"1 DAY"` (or `"1D"`)
+* `"1 WEEK"` (or `"1W"`)
+* `"2 WEEKS"` (or `"2W"`)
+* `"1 MONTH"` (or `"1M"`)
+* `"6 MONTHS"` (or `"6M"`)
+* `"1 YEAR"` (or `"1Y"`)
