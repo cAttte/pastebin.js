@@ -42,21 +42,21 @@ Your Pastebin password.
 
 ### user
 The user the client logged in with, if it has.  
-**Type: ?[ClientUser](#ClientUser)**
+**Type: ?[ClientUser](#clientuser)**
 
 ### users
 All of the cached users.  
-**Type: ?[UserStore](#UserStore)**
+**Type: ?[UserStore](#userstore)**
 
 ### pastes
 All of the cached pastes.  
-**Type: ?[PasteStore](#PasteStore)**
+**Type: ?[PasteStore](#pastestore)**
 
 ### login()
 Login with the stored username and password and store the user key.
 
 #### Returns
-**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[PastebinClient](#PastebinClient)>**
+**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[PastebinClient](#pastebinclient)>**
 
 ## PastebinError
 Thrown when there's an error related to the Pastebin API or pastebin.js.
@@ -101,7 +101,7 @@ new Paste(client, data)
 
 ### client
 The client used to get this paste.  
-**Type: [PastebinClient](#PastebinClient)**
+**Type: [PastebinClient](#pastebinclient)**
 
 ### key
 The key of this paste.  
@@ -117,7 +117,7 @@ The title of this paste.
 
 ### author
 The author of this paste.  
-**Type: ?[User](#User)**
+**Type: ?[User](#user)**
 
 ### content
 The content of this paste.  
@@ -155,13 +155,13 @@ The number of times anyone saw this paste.
 Fetch the content of this paste, and store it in the cache.
 
 #### Returns
-**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Paste](#Paste)>**
+**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Paste](#paste)>**
 
 ### delete()
 Delete this paste.
 
 #### Returns
-**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Paste](#Paste)>**
+**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Paste](#paste)>**
 
 ## User
 A Pastebin user.
@@ -179,7 +179,7 @@ new User(client, username)
 
 ### client
 The client used to get this user.  
-**Type: [PastebinClient](#PastebinClient)**
+**Type: [PastebinClient](#pastebinclient)**
 
 ### username
 This user's username.  
@@ -250,7 +250,7 @@ Whether this user is a PRO account.
 
 ### pastes
 All of this user's cached pastes.  
-**Type: ?[UserPasteStore](#UserPasteStore)**
+**Type: ?[UserPasteStore](#userpastestore)**
 
 ## PasteStore *extends Map*
 A structure that holds all of the cached pastes.
@@ -268,7 +268,7 @@ new PasteStore(client, entries)
 
 ### client
 The client this store belongs to.  
-**Type: [PastebinClient](#PastebinClient)**
+**Type: [PastebinClient](#pastebinclient)**
 
 ### fetch()
 Fetch a paste by its key, and store it in the cache.
@@ -279,7 +279,7 @@ Fetch a paste by its key, and store it in the cache.
 | key  | The paste's key | string |         |
 
 #### Returns
-**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Paste](#Paste)>**
+**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Paste](#paste)>**
 
 ### create()
 Create a paste, and store it in the cache.
@@ -295,7 +295,7 @@ Create a paste, and store it in the cache.
 | options.expiry  | The paste's expiry time     | string                      | `null`  |
 
 #### Returns
-**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Paste](#Paste)>**
+**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[Paste](#paste)>**
 
 ## UserStore
 A structure that holds all of the cached users.
@@ -313,7 +313,7 @@ new UserStore(client, entries)
 
 ### client
 The client this store belongs to.  
-**Type: [PastebinClient](#PastebinClient)**
+**Type: [PastebinClient](#pastebinclient)**
 
 ### fetch()
 Fetch a user by their username, and store them in the cache.
@@ -324,7 +324,7 @@ Fetch a user by their username, and store them in the cache.
 | username | The user's username | PastebinClient |         |
 
 #### Returns
-**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[User](#User)>**
+**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[User](#user)>**
 
 ## UserPasteStore
 A structure that holds all of a user's cached pastes.
@@ -343,11 +343,11 @@ new UserPasteStore()
 
 ### client
 The client this store belongs to.  
-**Type: [PastebinClient](#PastebinClient)**
+**Type: [PastebinClient](#pastebinclient)**
 
 ### user
 The user this store belongs to.  
-**Type: [User](#User)**
+**Type: [User](#user)**
 
 ### fetch()
 Fetch this user's pastes, and store them in the cache.
@@ -358,4 +358,4 @@ Fetch this user's pastes, and store them in the cache.
 | max  | The maximum number of pastes to fetch | number | `50`    |
 
 #### Returns
-**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[UserPasteStore](#UserPasteStore)>**
+**[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[UserPasteStore](#userpastestore)>**
