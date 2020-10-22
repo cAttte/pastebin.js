@@ -3,6 +3,10 @@
     "version": "1.0.2",
     "description": "An object-oriented JavaScript wrapper for the Pastebin API.",
     "main": "src/index.js",
+    "scripts": {
+        "build": "node_modules/.bin/tsc",
+        "watch": "node_modules/.bin/tsc --watch"
+    },
     "repository": "cAttte/pastebin.js",
     "keywords": [
         "pastebin",
