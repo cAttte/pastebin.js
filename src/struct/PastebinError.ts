@@ -1,11 +1,11 @@
 /**
  * Thrown when there's an error related to the Pastebin API or pastebin.js.
  */
-module.exports = class PastebinError extends Error {
+export default class PastebinError extends Error {
     /**
-     * @param {string} message The error message
+     * @param message The error message
      */
-    constructor(message) {
+    constructor(message: string) {
         super(message)
         this.name = "PastebinError"
     }
