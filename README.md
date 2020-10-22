@@ -18,9 +18,25 @@ const paste = await pastebin.pastes.create("console.log('hello, world')", {
 console.log(paste.url)
 ```
 
+## Usage
+
+-   [Classes](#classes)
+    -   [PastebinClient](#pastebinclient)
+    -   [PastebinError](#pastebinerror-extends-error)
+    -   [Paste](#paste)
+    -   [User](#user-1)
+    -   [ClientUser](#clientuser-extends-user)
+    -   [PasteStore](#pastestore-extends-map)
+    -   [UserStore](#userstore)
+    -   [UserPasteStore](#userpastestore)
+-   [Typedefs](#typedefs)
+    -   [Format](#format-2)
+    -   [Privacy](#privacy-2)
+    -   [Expiry](#expiry-2)
+
 ## Classes
 
-The module exports the following classes, you can use them like so:
+The module exports the following classes, you can import them like so:
 
 ```js
 const {
