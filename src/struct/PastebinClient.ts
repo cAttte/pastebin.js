@@ -1,85 +1,86 @@
-const PastebinError = require("./PastebinError")
-const User = require("./User")
-const PasteStore = require("./stores/PasteStore")
-const UserStore = require("./stores/UserStore")
+import { encode, ParsedUrlQueryInput } from "querystring"
+import fetch from "node-fetch"
 
-const querystring = require("querystring")
-const fetch = require("node-fetch")
+import PastebinError from "./PastebinError"
+import PasteStore from "./stores/PasteStore"
+import UserStore from "./stores/UserStore"
+import ClientUser from "./ClientUser"
 
-const BASE_URL = "https://pastebin.com/"
-const BASE_API_URL = BASE_URL + "api/"
-const BASE_RAW_URL = BASE_URL + "raw/"
-const POST_URL = BASE_API_URL + "api_post.php"
-const LOGIN_URL = BASE_API_URL + "api_login.php"
-const RAW_URL = BASE_API_URL + "api_raw.php"
+/**
+ * @typedef PastebinCredentials
+ * @property {string?} apiKey Your Pastebin API key
+ * @property {string?} username Your Pastebin username
+ * @property {string?} password Your Pastebin password
+ * @property {string?} userKey The user key, obtained when logging in
+ */
+type PastebinCredentials = {
+    apiKey?: string
+    username?: string
+    password?: string
+    userKey?: string
+}
 
 /**
  * The client used to interact with Pastebin's API
  */
-module.exports = class PastebinClient {
-
-    static BASE_URL = BASE_URL
-    static BASE_API_URL = BASE_API_URL
-    static BASE_RAW_URL = BASE_RAW_URL
-    static POST_URL = POST_URL
-    static LOGIN_URL = LOGIN_URL
-    static RAW_URL = RAW_URL
+export default class PastebinClient {
+    static BASE_URL = "https://pastebin.com/"
+    static BASE_API_URL = PastebinClient.BASE_URL + "api/"
+    static BASE_RAW_URL = PastebinClient.BASE_URL + "raw/"
+    static POST_URL = PastebinClient.BASE_API_URL + "api_post.php"
+    static LOGIN_URL = PastebinClient.BASE_API_URL + "api_login.php"
+    static RAW_URL = PastebinClient.BASE_API_URL + "api_raw.php"
 
     /**
-     * @param {string?} apiKey Your Pastebin API key
-     * @param {string?} username Your Pastebin username
-     * @param {string?} password Your Pastebin password
+     * Your Pastebin credentials.
+     * @type {PastebinCredentials}
+     */
+    credentials: PastebinCredentials = {}
+    /**
+     * The user the client logged in with, if it has.
+     */
+    user: ClientUser
+    /**
+     * All of the cached users.
+     */
+    users: UserStore
+    /**
+     * All of the cached pastes.
+     */
+    pastes: PasteStore
+
+    /**
+     * @param apiKey Your Pastebin API key
+     * @param username Your Pastebin username
+     * @param password Your Pastebin password
      */
     constructor(apiKey = null, username = null, password = null) {
-        /**
-         * Your Pastebin credentials.
-         * @type {object}
-         * @property {string?} apiKey Your Pastebin API key
-         * @property {string?} username Your Pastebin username
-         * @property {string?} password Your Pastebin password
-         */
-        this.credentials = {
-            apiKey, username, password
-        }
-        /**
-         * The user the client logged in with, if it has.
-         * @type {ClientUser?}
-         */
+        this.credentials = { apiKey, username, password }
         this.user = null
-        /**
-         * All of the cached users.
-         * @type {UserStore}
-         */
         this.users = new UserStore(this)
-        /**
-         * All of the cached pastes.
-         * @type {PasteStore}
-         */
         this.pastes = new PasteStore(this)
     }
 
     /**
      * Make a POST request to a Pastebin API URL.
-     * @param {string} url The URL to request
-     * @param {Object} requestBody The body of the request
-     * @returns {Promise<string>}
+     * @param url The URL to request
+     * @param requestBody The body of the request
      */
-    static async post(url, requestBody) {
-        if (typeof url !== "string")
-            throw new PastebinError("`url` must be a string.")
+    static async post(url: string, requestBody: object): Promise<string> {
         if (!new URL(url).protocol.startsWith("http"))
             throw new PastebinError("`url` must use the HTTP or HTTPS protocol.")
-        if (!requestBody || typeof requestBody !== "object")
-            throw new PastebinError("`requestBody` must be an object.")
         const response = await fetch(url, {
             method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-            body: querystring.encode(requestBody)
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+            },
+            body: encode(<ParsedUrlQueryInput>requestBody)
         })
         const body = await response.text()
+
         if (body.toLowerCase().startsWith("bad api request")) {
             const error = body.slice("bad api request, ".length).toLowerCase()
-            switch(error) {
+            switch (error) {
                 case "invalid login":
                     throw new PastebinError("Invalid username or password.")
                 case "account not active":
@@ -95,9 +96,13 @@ module.exports = class PastebinClient {
                 case "ip blocked":
                     throw new PastebinError("IP blocked.")
                 case "maximum number of 25 unlisted pastes for your free account":
-                    throw new PastebinError("Maximum of 25 unlisted pastes for free account exceeded.")
+                    throw new PastebinError(
+                        "Maximum of 25 unlisted pastes for free account exceeded."
+                    )
                 case "maximum number of 10 private pastes for your free account":
-                    throw new PastebinError("Maximum of 10 private pastes for free account exceeded.")
+                    throw new PastebinError(
+                        "Maximum of 10 private pastes for free account exceeded."
+                    )
                 case "api_paste_code was empty":
                     throw new PastebinError("Paste content is empty.")
                 case "maximum paste file size exceeded":
@@ -120,15 +125,14 @@ module.exports = class PastebinClient {
 
     /**
      * Login with the stored username and password and store the user key.
-     * @returns {Promise<PastebinClient>}
      */
-    async login() {
+    async login(): Promise<PastebinClient> {
         if (!this.credentials.apiKey)
             throw new PastebinError("API key is required to login.")
         if (!this.credentials.username || !this.credentials.password)
             throw new PastebinError("Username and password are required to login.")
 
-        const body = await this.constructor.post(this.constructor.LOGIN_URL, {
+        const body = await PastebinClient.post(PastebinClient.LOGIN_URL, {
             api_dev_key: this.credentials.apiKey,
             api_user_name: this.credentials.username,
             api_user_password: this.credentials.password
@@ -140,5 +144,4 @@ module.exports = class PastebinClient {
 
         return this
     }
-
 }
