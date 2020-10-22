@@ -26,6 +26,6 @@ export default class User {
      * Whether this user is the same as the client's user.
      */
     get me(): boolean {
-        return this.username === this.client.username
+        return this.username === this.client.user.username
     }
 }
