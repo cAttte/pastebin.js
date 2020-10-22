@@ -17,5 +17,8 @@
         "node-fetch": "^2.6.0",
         "querystring": "^0.2.0",
         "xml2js": "^0.4.23"
+    },
+    "devDependencies": {
+        "typescript": "^4.0.3"
     }
 }
