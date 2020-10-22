@@ -1,29 +1,21 @@
 {
-  "name": "@catte_/pastebin.js",
-  "version": "1.0.2",
-  "description": "An object-oriented JavaScript wrapper for the Pastebin API.",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cAttte/pastebin.js.git"
-  },
-  "keywords": [
-    "pastebin",
-    "paste",
-    "api"
-  ],
-  "author": "catte_",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/cAttte/pastebin.js/issues"
-  },
-  "homepage": "https://github.com/cAttte/pastebin.js#readme",
-  "dependencies": {
-    "node-fetch": "^2.6.0",
-    "querystring": "^0.2.0",
-    "xml2js": "^0.4.23"
-  }
+    "name": "@catte_/pastebin.js",
+    "version": "1.0.2",
+    "description": "An object-oriented JavaScript wrapper for the Pastebin API.",
+    "main": "src/index.js",
+    "repository": "cAttte/pastebin.js",
+    "keywords": [
+        "pastebin",
+        "paste",
+        "api"
+    ],
+    "author": "catte_",
+    "license": "MIT",
+    "bugs": "https://github.com/cAttte/pastebin.js/issues",
+    "homepage": "https://github.com/cAttte/pastebin.js#readme",
+    "dependencies": {
+        "node-fetch": "^2.6.0",
+        "querystring": "^0.2.0",
+        "xml2js": "^0.4.23"
+    }
 }
