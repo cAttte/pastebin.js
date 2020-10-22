@@ -11,12 +11,24 @@ import ClientUser from "./ClientUser"
  * @property {string?} apiKey Your Pastebin API key
  * @property {string?} username Your Pastebin username
  * @property {string?} password Your Pastebin password
- * @property {string?} userKey The user key, obtained when logging in
+ * @property {string?} userKey Your Pastebin user key, obtained when logging in
  */
 type PastebinCredentials = {
+    /**
+     * Your Pastebin API key
+     */
     apiKey?: string
+    /**
+     * Your Pastebin username
+     */
     username?: string
+    /**
+     * Your Pastebin password
+     */
     password?: string
+    /**
+     * Your Pastebin user key, obtained when logging in
+     */
     userKey?: string
 }
 
