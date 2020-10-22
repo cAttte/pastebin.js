@@ -486,7 +486,7 @@ Fetch this user's pastes, and store them in the cache.
 
 ### Format
 
-A "format," which will be used for syntax highlighting. You can see the full list of formats [here](https://pastebin.com/api#5).
+A "format," which will be used for syntax highlighting. You can see the full list of formats [here](https://pastebin.com/doc_api#5).
 
 **Type:** `string`
 
