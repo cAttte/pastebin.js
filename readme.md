@@ -31,6 +31,7 @@ console.log(paste.url)
     -   [UserPasteStore](#userpastestore)
 -   [Typedefs](#typedefs)
     -   [PastebinCredentials](#pastebincredentials)
+    -   [PasteCreateOptions](#pastecreateoptions)
     -   [Format](#format-2)
     -   [Privacy](#privacy-2)
     -   [Expiry](#expiry-2)
@@ -474,7 +475,9 @@ Fetch this user's pastes, and store them in the cache.
 
 The credentials provided to and stored in the PastebinClient.
 
-**Type:** `{ apiKey?: string, username?: string, password?: string, userKey?: string }`
+**Type:** `{ apiKey?, username?, password?, userKey? }`
+
+#### Properties
 
 | name     | description                                      | type   | default |
 | -------- | ------------------------------------------------ | ------ | ------- |
@@ -483,7 +486,20 @@ The credentials provided to and stored in the PastebinClient.
 | password | Your Pastebin password                           | string | `null`  |
 | userKey  | Your Pastebin user key, obtained when logging in | string | `null`  |
 
+### PasteCreateOptions
+
+Options to create a paste.
+
+**Type:** `{ title?, format?, privacy?, expiry? }`
+
 #### Properties
+
+| name    | description                                      | type                  | default |
+| ------- | ------------------------------------------------ | --------------------- | ------- |
+| title   | Your Pastebin API key                            | string                | `null`  |
+| format  | Your Pastebin username                           | [Format](#format-2)   | `null`  |
+| privacy | Your Pastebin password                           | [Privacy](#privacy-2) | `null`  |
+| expiry  | Your Pastebin user key, obtained when logging in | [Expiry](#expiry-2)   | `null`  |
 
 ### Format
 
