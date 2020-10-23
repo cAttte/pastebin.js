@@ -7,7 +7,7 @@ An object-oriented JavaScript wrapper for the Pastebin API.
 ## Quick Example
 
 ```js
-const { PastebinClient } = require("pastebin.js")
+const { PastebinClient } = require("@catte_/pastebin.js")
 const pastebin = new PastebinClient(process.env.API_KEY)
 
 const paste = await pastebin.pastes.create("console.log('hello, world')", {
@@ -50,7 +50,7 @@ const {
     PasteStore,
     UserStore,
     UserPasteStore
-} = require("pastebin.js")
+} = require("@catte_/pastebin.js")
 ```
 
 ### PastebinClient
