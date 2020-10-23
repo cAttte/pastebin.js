@@ -66,6 +66,10 @@ export default class Paste {
      */
     constructor(client: PastebinClient, data: any) {
         this.client = client
+        this._apply(data)
+    }
+
+    _apply(data: any) {
         this.key = data.key
         this.title = data.title
         this.author = data.author

@@ -19,6 +19,10 @@ export default class User {
      */
     constructor(client: PastebinClient, data: any) {
         this.client = client
+        this._apply(data)
+    }
+
+    _apply(data: any) {
         this.username = data.username
     }
 
