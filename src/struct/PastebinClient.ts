@@ -152,7 +152,7 @@ export default class PastebinClient {
 
         this.credentials.userKey = body.trim()
         if (this.credentials.userKey)
-            this.user = await this.users.fetch(this.credentials.username)
+            this.user = <ClientUser>await this.users.fetch(this.credentials.username)
 
         return this
     }
