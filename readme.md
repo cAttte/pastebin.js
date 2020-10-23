@@ -18,6 +18,10 @@ const paste = await pastebin.pastes.create("console.log('hello, world')", {
 console.log(paste.url)
 ```
 
+## Installation
+
+    $ npm install @catte_/pastebin.js
+
 ## Usage
 
 -   [Classes](#classes)
