@@ -4,7 +4,11 @@
 
 An object-oriented JavaScript wrapper for the Pastebin API.
 
-## Quick Example
+## Installation
+
+    $ npm install @catte_/pastebin.js
+
+## Usage
 
 ```js
 const { PastebinClient } = require("@catte_/pastebin.js")
@@ -17,12 +21,6 @@ const paste = await pastebin.pastes.create("console.log('hello, world')", {
 })
 console.log(paste.url)
 ```
-
-## Installation
-
-    $ npm install @catte_/pastebin.js
-
-## Usage
 
 -   [Classes](#classes)
     -   [PastebinClient](#pastebinclient)
