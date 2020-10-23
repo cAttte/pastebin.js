@@ -30,6 +30,7 @@ console.log(paste.url)
     -   [UserStore](#userstore)
     -   [UserPasteStore](#userpastestore)
 -   [Typedefs](#typedefs)
+    -   [PastebinCredentials](#pastebincredentials)
     -   [Format](#format-2)
     -   [Privacy](#privacy-2)
     -   [Expiry](#expiry-2)
@@ -72,22 +73,7 @@ new PastebinClient(apiKey, username, password)
 #### .credentials
 
 Your Pastebin credentials.  
-**Type: [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)**
-
-##### credentials.apiKey
-
-Your Pastebin API key.  
-**Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
-
-##### credentials.username
-
-Your Pastebin username.  
-**Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
-
-##### credentials.password
-
-Your Pastebin password.  
-**Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
+**Type: [PastebinCredentials](#pastebincredentials)**
 
 #### .user
 
@@ -483,6 +469,21 @@ Fetch this user's pastes, and store them in the cache.
 **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)<[UserPasteStore](#userpastestore)>**
 
 ## Typedefs
+
+### PastebinCredentials
+
+The credentials provided to and stored in the PastebinClient.
+
+**Type:** `{ apiKey?: string, username?: string, password?: string, userKey?: string }`
+
+| name     | description                                      | type   | default |
+| -------- | ------------------------------------------------ | ------ | ------- |
+| apiKey   | Your Pastebin API key                            | string | `null`  |
+| username | Your Pastebin username                           | string | `null`  |
+| password | Your Pastebin password                           | string | `null`  |
+| userKey  | Your Pastebin user key, obtained when logging in | string | `null`  |
+
+#### Properties
 
 ### Format
 
