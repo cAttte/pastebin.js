@@ -8,7 +8,7 @@ import User from "../User"
 /**
  * A structure that holds all of a user's cached pastes.
  */
-module.exports = class UserPasteStore extends Map {
+export default class UserPasteStore extends Map {
     /**
      * The client this store belongs to.
      */
