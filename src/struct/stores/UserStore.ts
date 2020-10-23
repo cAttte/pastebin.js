@@ -25,6 +25,26 @@ export default class UserStore extends Map<string, User> {
     }
 
     /**
+     * Store and get a user by their username.
+     * @param data The data obtained from the API
+     * @param username The user's username.
+     */
+    store(
+        data: any,
+        username: string = data.username,
+        Type: typeof User | typeof ClientUser = User
+    ): User {
+        let existing = this.get(username)
+        if (existing) {
+            existing._apply(data)
+        } else {
+            existing = new Type(this.client, data)
+            this.set(username, existing)
+        }
+        return existing
+    }
+
+    /**
      * Fetch a user by their username, and store them in the cache.
      * @param username The user's username
      */
@@ -57,8 +77,7 @@ export default class UserStore extends Map<string, User> {
             UserConstructor = ClientUser
         }
 
-        const user = new UserConstructor(this.client, data)
-        this.set(username, user)
+        const user = this.store(data, data.username, UserConstructor)
         return user
     }
 }
