@@ -15,11 +15,11 @@ export default class User {
 
     /**
      * @param client The client used to get the user
-     * @param username The user's username
+     * @param data The data obtained from the API
      */
-    constructor(client: PastebinClient, username: string) {
+    constructor(client: PastebinClient, data: any) {
         this.client = client
-        this.username = username
+        this.username = data.username
     }
 
     /**
