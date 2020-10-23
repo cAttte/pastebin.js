@@ -35,6 +35,22 @@ export default class UserPasteStore extends Map {
     }
 
     /**
+     * Store and get a paste by its key.
+     * @param data The data obtained from the API
+     * @param key The paste's key
+     */
+    store(data: any, key: string = data.key): Paste {
+        let existing = this.get(key)
+        if (existing) {
+            existing._apply(data)
+        } else {
+            existing = new Paste(this.client, data)
+            this.set(key, existing)
+        }
+        return existing
+    }
+
+    /**
      * Fetch this user's pastes, and store them in the cache.
      * @param max The maximum number of pastes to fetch
      */
@@ -57,7 +73,7 @@ export default class UserPasteStore extends Map {
 
         for (const xml of xmls) {
             const parsed = await parseStringPromise(xml)
-            const paste = new Paste(this.client, {
+            this.store({
                 key: parsed.paste.paste_key[0],
                 date: new Date(Number(parsed.paste.paste_date[0]) * 1000),
                 title: parsed.paste.paste_title[0],
@@ -68,14 +84,13 @@ export default class UserPasteStore extends Map {
                 format: parsed.paste.paste_format_short[0],
                 hits: Number(parsed.paste.paste_hits[0])
             })
-            this.set(paste.key, paste)
         }
 
         return this
     }
 
     set(key: string, paste: Paste) {
-        this.client.pastes.set(key, paste)
+        this.client.pastes.store(paste)
         super.set(key, paste)
         return this
     }
