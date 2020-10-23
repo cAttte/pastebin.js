@@ -74,7 +74,7 @@ export default class Paste {
         this.title = data.title
         this.author = data.author
         this.content = data.content
-        this.size = data.size || (data.content || {}).length
+        this.size = data.size || data.content?.length
         this.date = data.date
         this.format = data.format
         this.privacy = resolvePrivacy(data.privacy)
