@@ -63,7 +63,7 @@ export default class UserPasteStore extends Map {
                 title: parsed.paste.paste_title[0],
                 author: this.user,
                 size: Number(parsed.paste.paste_size[0]),
-                expiryDate: new Date(Number(parsed.paste.paste_expire_date[0]) * 1000),
+                expiry: parsed.paste.paste_expire_date[0] * 1000,
                 privacy: Number(parsed.paste.paste_private[0]),
                 format: parsed.paste.paste_format_short[0],
                 hits: Number(parsed.paste.paste_hits[0])

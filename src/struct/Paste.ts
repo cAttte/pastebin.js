@@ -52,10 +52,6 @@ export default class Paste {
      */
     expiry?: Expiry
     /**
-     * The expiry date of this paste.
-     */
-    expiryDate?: Date
-    /**
      * The number of times anyone saw this paste.
      */
     hits?: number
@@ -79,7 +75,6 @@ export default class Paste {
         this.format = data.format
         this.privacy = resolvePrivacy(data.privacy)
         this.expiry = resolveExpiry(data.expiry)
-        this.expiryDate = data.expiryDate
         this.hits = data.hits
         this.deleted = data.deleted || false
     }

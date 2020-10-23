@@ -191,11 +191,6 @@ The privacy setting of this paste.
 The expiry time of this paste.  
 **Type: ?[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)**
 
-#### .expiryDate
-
-The expiry date of this paste.  
-**Type: ?[Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)**
-
 #### .hits
 
 The number of times anyone saw this paste.  
