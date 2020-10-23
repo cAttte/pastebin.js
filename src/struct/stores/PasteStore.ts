@@ -57,6 +57,22 @@ export default class PasteStore extends Map {
     }
 
     /**
+     * Store and get a paste by its key.
+     * @param data The data obtained from the API
+     * @param key The paste's key
+     */
+    store(data: any, key: string = data.key): Paste {
+        let existing = this.get(key)
+        if (existing) {
+            existing._apply(data)
+        } else {
+            existing = new Paste(this.client, data)
+            this.set(key, existing)
+        }
+        return existing
+    }
+
+    /**
      * Fetch a paste by its key, and store it in the cache.
      * @param key The paste's key
      */
@@ -68,7 +84,8 @@ export default class PasteStore extends Map {
                 api_paste_key: key,
                 api_option: "show_paste"
             })
-            const paste = new Paste(this.client, { key, content: body })
+
+            const paste = this.store({ key, content: body })
             return paste
         } else {
             const response = await fetch(PastebinClient.BASE_RAW_URL + key)
@@ -80,7 +97,7 @@ export default class PasteStore extends Map {
             if (content === ERROR_CONTENT)
                 throw new PastebinError("The paste is private.")
 
-            const paste = new Paste(this.client, { key, content })
+            const paste = this.store({ key, content })
             return paste
         }
     }
@@ -120,15 +137,14 @@ export default class PasteStore extends Map {
 
         const key = response.match(/pastebin\.com\/(.+)/i)?.[1]
         if (!key) throw new PastebinError("Invalid response.")
-        const paste = new Paste(this.client, {
-            key,
-            content,
+        const paste = this.store({
+            key: key,
+            content: content,
             format: options.format,
             privacy: options.privacy,
             expiry: options.expiry
         })
 
-        this.set(key, paste)
         return paste
     }
 }
