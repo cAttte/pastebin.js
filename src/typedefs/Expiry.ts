@@ -39,6 +39,7 @@ export type Expiry =
 export function resolveExpiry(
     input: string
 ): "N" | "10M" | "1H" | "1D" | "1W" | "2W" | "1M" | "6M" | "1Y" {
+    if (!input) return null
     const initials = input
         .split(" ")
         .map(w => w[0])
