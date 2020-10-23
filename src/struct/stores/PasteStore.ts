@@ -87,9 +87,8 @@ export default class PasteStore extends Map {
 
     /**
      * Create a paste, and store it in the cache.
-     * @param {*} content The content of the paste
-     * @param {PasteCreateOptions} options
-     * @returns {Promise<Paste>}
+     * @param content The content of the paste
+     * @param options
      */
     async create(content: string, options: PasteCreateOptions = {}): Promise<Paste> {
         if (!this.client.credentials.apiKey)
